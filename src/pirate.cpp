@@ -1,6 +1,8 @@
 //Implementation file for pirate class
 
 #include <string>
+#include <iostream>
+#include <fstream>
 #include "pirate.h"
 #include "ypp_page.h"
 #include "biz.h"
@@ -22,6 +24,7 @@ void pirate::Load()
 {
     //Load crewname
     this->piratename = pirate::LoadPirateName();
+
     //Load vector of crews with their URLs, loads recursively
     this->bizlist = pirate::LoadBizList();
 
@@ -33,7 +36,8 @@ void pirate::Load()
 //Read Pirate Name
 std::string pirate::LoadPirateName()
 {
-    return "";
+    //This case is simple, the filename already contains the name
+    return this->filename.substr(this->filename.find("pirate_") + 7, this->filename.find(".html") - this->filename.find("pirate_") - 7);
 }
 
 //Read biz List
