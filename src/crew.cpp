@@ -5,20 +5,41 @@
 #include "pirate.h"
 #include "bizdb.h"
 
-crew::crew():
-    URL(""),
-    crewname(""),
-    isLoaded(false)
-    {}
-
-crew::crew(std::string URL)
+crew::crew() : URL(""),
+               crewname(""),
+               isLoaded(false)
 {
-    crew::Load(URL);
 }
 
-void crew::Load(std::string URL)
+//If providing URL, download it
+crew::crew(std::string _URL) : URL(_URL)
 {
+    crew::Download();
+}
+
+void crew::Load()
+{
+    //Load crewname
+    this->crewname = crew::LoadCrewName();
+    //Load vector of crews with their URLs, loads recursively
+    this->piratelist = crew::LoadPirateList();
+    
+    //Set loaded flag to true
+    this->isLoaded = true;
     return;
+}
+
+//Read Crew Name
+std::string crew::LoadCrewName()
+{
+    return "";
+}
+
+//Read Pirate List
+std::vector<pirate> crew::LoadPirateList()
+{
+    std::vector<pirate> testpirate;
+    return testpirate;
 }
 
 void crew::AddToDB(bizdb &db)

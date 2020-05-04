@@ -5,6 +5,9 @@
 #include <iostream>
 //Project files
 #include "flag.h"
+#include "pirate.h"
+#include "crew.h"
+#include "biz.h"
 
 int main(int argc, char *argv[])
 {

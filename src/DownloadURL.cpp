@@ -11,7 +11,7 @@
 #include "Write_Data.h"
 #include "DownloadURL.h"
 
-void DownloadURL(std::string URL)
+std::string DownloadURL(std::string URL)
 {
     //Initialize CURL
     CURL *curl_handle;
@@ -34,7 +34,7 @@ void DownloadURL(std::string URL)
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, Write_Data);
 
     /* open the file */
-    pagefile = fopen(("downloads/"+FilenameFromURL(URL)).c_str(), "wb");
+    pagefile = fopen(("downloads/" + FilenameFromURL(URL)).c_str(), "wb");
     if (pagefile)
     {
         /* write the page body to this file handle */
@@ -51,6 +51,8 @@ void DownloadURL(std::string URL)
     curl_easy_cleanup(curl_handle);
 
     curl_global_cleanup();
+
+    return "downloads/" + FilenameFromURL(URL);
 }
 
 //Function to get a unique filename from a URL fom ypp

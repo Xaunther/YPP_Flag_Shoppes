@@ -5,20 +5,41 @@
 #include "biz.h"
 #include "bizdb.h"
 
-pirate::pirate():
-    URL(""),
-    piratename(""),
-    isLoaded(false)
-    {}
-
-pirate::pirate(std::string URL)
+pirate::pirate() : URL(""),
+                   piratename(""),
+                   isLoaded(false)
 {
-    pirate::Load(URL);
 }
 
-void pirate::Load(std::string URL)
+//If providing URL, download it
+pirate::pirate(std::string _URL) : URL(_URL)
 {
+    pirate::Download();
+}
+
+void pirate::Load()
+{
+    //Load crewname
+    this->piratename = pirate::LoadPirateName();
+    //Load vector of crews with their URLs, loads recursively
+    this->bizlist = pirate::LoadBizList();
+
+    //Set loaded flag to true
+    this->isLoaded = true;
     return;
+}
+
+//Read Pirate Name
+std::string pirate::LoadPirateName()
+{
+    return "";
+}
+
+//Read biz List
+std::vector<biz> pirate::LoadBizList()
+{
+    std::vector<biz> testbiz;
+    return testbiz;
 }
 
 void pirate::AddToDB(bizdb &db)
