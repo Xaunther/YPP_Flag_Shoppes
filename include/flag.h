@@ -10,7 +10,7 @@
 #include "crew.h"
 #include "bizdb.h"
 
-class flag : ypp_page
+class flag : public ypp_page
 {
 public:
     flag(); //Default constructor

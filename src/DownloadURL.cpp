@@ -28,7 +28,7 @@ std::string DownloadURL(std::string URL)
     curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 0L);
 
     /* disable progress meter, set to 0L to enable it */
-    curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 0L);
+    curl_easy_setopt(curl_handle, CURLOPT_NOPROGRESS, 1L);
 
     /* send all data to this function  */
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, Write_Data);
@@ -69,7 +69,7 @@ std::string FilenameFromURL(std::string URL)
         //Name example: crewid=10006353& -> crew_10006353.html
         return "crew_" + URL.substr(URL.find("crewid=") + 7, URL.find("&", URL.find("crewid=") + 7) - URL.find("crewid=") - 7) + ".html";
     }
-    else if (URL.find("yoweb/pirate/info.wm") != std::string::npos) //Pirate page
+    else if (URL.find("yoweb/pirate.wm") != std::string::npos) //Pirate page
     {
         //Name example: target=Xaunder -> pirate_Xaunder.html
         return "pirate_" + URL.substr(URL.find("target=") + 7) + ".html";

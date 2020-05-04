@@ -2,6 +2,7 @@
 
 #include <string>
 #include "pirate.h"
+#include "ypp_page.h"
 #include "biz.h"
 #include "bizdb.h"
 
@@ -12,9 +13,9 @@ pirate::pirate() : URL(""),
 }
 
 //If providing URL, download it
-pirate::pirate(std::string _URL) : URL(_URL)
+pirate::pirate(std::string _URL) : ypp_page(_URL),
+                                   isLoaded(false)
 {
-    pirate::Download();
 }
 
 void pirate::Load()

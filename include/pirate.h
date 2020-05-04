@@ -10,7 +10,7 @@
 #include "biz.h"
 #include "bizdb.h"
 
-class pirate : ypp_page
+class pirate : public ypp_page
 {
 public:
     pirate(); //Default constructor

@@ -9,7 +9,7 @@
 #include "DownloadURL.h"
 
 //Initialize empty strings with default constructor
-ypp_page::ypp_page(void) : URL(""),
+ypp_page::ypp_page() : URL(""),
                        filename("")
 {
 }
@@ -24,5 +24,6 @@ void ypp_page::Download()
 {
     //Download URL into a file
     this->filename = DownloadURL(this->URL);
+    std::cout << this->URL << " downloaded at " << this->filename << std::endl;
     return;
 }

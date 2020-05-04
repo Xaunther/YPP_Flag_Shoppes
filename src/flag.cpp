@@ -7,22 +7,23 @@
 #include <curl/curl.h>
 //Project files
 #include "flag.h"
+#include "ypp_page.h"
 #include "crew.h"
 #include "bizdb.h"
 #include "Write_Data.h"
 #include "DownloadURL.h"
 
 //Initialize empty strings with default constructor
-flag::flag() : URL(""),
+flag::flag() : URL("caca"),
                flagname(""),
                isLoaded(false)
 {
 }
 
 //If providing URL, download it
-flag::flag(std::string _URL) : URL(_URL)
+flag::flag(std::string _URL) : isLoaded(false),
+                               ypp_page(_URL)
 {
-    flag::Download();
 }
 
 //Load webpage and extract required info
@@ -32,7 +33,7 @@ void flag::Load()
     this->flagname = flag::LoadFlagName();
     //Load vector of crews with their URLs, loads recursively
     this->crewlist = flag::LoadCrewList();
-    
+
     //Set loaded flag to true
     this->isLoaded = true;
     return;

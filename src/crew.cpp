@@ -1,6 +1,7 @@
 //Implementation file for flag class
 
 #include <string>
+#include "ypp_page.h"
 #include "crew.h"
 #include "pirate.h"
 #include "bizdb.h"
@@ -12,9 +13,9 @@ crew::crew() : URL(""),
 }
 
 //If providing URL, download it
-crew::crew(std::string _URL) : URL(_URL)
+crew::crew(std::string _URL) : ypp_page(_URL),
+                               isLoaded(false)
 {
-    crew::Download();
 }
 
 void crew::Load()
@@ -23,7 +24,7 @@ void crew::Load()
     this->crewname = crew::LoadCrewName();
     //Load vector of crews with their URLs, loads recursively
     this->piratelist = crew::LoadPirateList();
-    
+
     //Set loaded flag to true
     this->isLoaded = true;
     return;
