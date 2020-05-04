@@ -14,7 +14,7 @@ class crew
     public:
         crew(); //Default constructor
         crew(std::string URL); //Constructor providing the URL to be loaded
-        ~crew(); //Default desctructor
+        ~crew(){} //Default desctructor
 
         //Methods
         void Load(std::string URL); //Load the crew provided by the URL

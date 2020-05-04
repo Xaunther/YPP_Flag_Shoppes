@@ -5,8 +5,9 @@
 
 class bizdb
 {
-    bizdb(); //Default constructor
-    ~bizdb(); //Default destructor
+public:
+    bizdb();    //Default constructor
+    ~bizdb() {} //Default destructor
 };
 
 #endif

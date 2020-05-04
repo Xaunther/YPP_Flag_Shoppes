@@ -5,8 +5,9 @@
 
 class biz
 {
-    biz(); //Default constructor
-    ~biz(); //Default destructor
+public:
+    biz();    //Default constructor
+    ~biz() {} //Default destructor
 };
 
 #endif

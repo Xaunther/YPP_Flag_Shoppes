@@ -14,7 +14,7 @@ class pirate
     public:
         pirate(); //Default constructor
         pirate(std::string URL); //Constructor providing the URL to be loaded
-        ~pirate(); //Default desctructor
+        ~pirate(){} //Default desctructor
 
         //Methods
         void Load(std::string URL); //Load the pirate provided by the URL
