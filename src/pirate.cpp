@@ -5,6 +5,7 @@
 #include <fstream>
 #include <regex>
 #include "TrimString.h"
+#include "SplitString.h"
 #include "pirate.h"
 #include "ypp_page.h"
 #include "biz.h"
@@ -107,19 +108,29 @@ std::vector<biz> pirate::LoadBizList()
                 //So in this case we could have a group of shoppes of the same type, not just one!
                 std::getline(infile, _line);
                 std::getline(infile, _line);
+
                 while (_line.find("</font></td>") == std::string::npos)
                 {
-                    std::regex searchword("\\bon\\b");
-                    std::smatch m;
-                    std::regex_search(_line, m, searchword);
-                    
-                    std::string resname = _line.substr(_line.find("</b>") + 4, m.position(m.size() - 1) - _line.find("</b>") - 5);
-                    _biz.SetBizName(TrimString(resname));
+                    //Clean line
+                    _line = _line.substr(_line.find("</b>") + 4);
+                    _line = _line.substr(0, _line.find("</font></td>"));
+                    //Split same line if there are commas
+                    std::vector<std::string> split_line = SplitString(_line, ",");
+                    //Do for each element
+                    for (unsigned int i = 0; i < split_line.size(); i++)
+                    {
+                        std::regex searchword("\\bon\\b");
+                        std::smatch m;
+                        std::regex_search(split_line[i], m, searchword);
 
-                    resname = _line.substr(m.position(m.size() - 1) + 3);
-                    _biz.SetIsland(TrimString(resname));
+                        std::string resname = split_line[i].substr(1, m.position(m.size() - 1) - 1);
+                        _biz.SetBizName(TrimString(resname));
 
-                    _bizlist.push_back(_biz);
+                        resname = split_line[i].substr(m.position(m.size() - 1) + 3);
+                        _biz.SetIsland(TrimString(resname));
+
+                        _bizlist.push_back(_biz);
+                    }
                     std::getline(infile, _line);
                 }
             }
@@ -131,17 +142,26 @@ std::vector<biz> pirate::LoadBizList()
 
                 while (_line.find("</tr>") == std::string::npos)
                 {
-                    std::regex searchword("\\bon\\b");
-                    std::smatch m;
-                    std::regex_search(_line, m, searchword);
+                    //Clean line
+                    _line = _line.substr(_line.find("</b>") + 4);
+                    _line = _line.substr(0, _line.find("</font></td>"));
+                    //Split same line if there are commas
+                    std::vector<std::string> split_line = SplitString(_line, ",");
+                    //Do for each element
+                    for (unsigned int i = 0; i < split_line.size(); i++)
+                    {
+                        std::regex searchword("\\bon\\b");
+                        std::smatch m;
+                        std::regex_search(split_line[i], m, searchword);
 
-                    std::string resname = _line.substr(_line.find("</b>") + 4, m.position(m.size() - 1) - _line.find("</b>") - 5);
-                    _biz.SetBizName(TrimString(resname));
+                        std::string resname = split_line[i].substr(1, m.position(m.size() - 1) - 1);
+                        _biz.SetBizName(TrimString(resname));
 
-                    resname = _line.substr(m.position(m.size() - 1) + 3, _line.find("</font></td>") - m.position(m.size() - 1) - 3);
-                    _biz.SetIsland(TrimString(resname));
+                        resname = split_line[i].substr(m.position(m.size() - 1) + 3);
+                        _biz.SetIsland(TrimString(resname));
 
-                    _bizlist.push_back(_biz);
+                        _bizlist.push_back(_biz);
+                    }
                     std::getline(infile, _line);
                 }
             }
@@ -153,9 +173,9 @@ std::vector<biz> pirate::LoadBizList()
 std::vector<biz> pirate::GetBiz(std::string bizname)
 {
     std::vector<biz> returnlist;
-    for(unsigned int i = 0;i<this->bizlist.size();i++)
+    for (unsigned int i = 0; i < this->bizlist.size(); i++)
     {
-        if(bizname == this->bizlist[i].GetBizName())
+        if (bizname == this->bizlist[i].GetBizName())
         {
             returnlist.push_back(this->bizlist[i]);
         }
@@ -165,9 +185,9 @@ std::vector<biz> pirate::GetBiz(std::string bizname)
 
 biz pirate::GetBiz(std::string bizname, std::string islandname)
 {
-    for(unsigned int i = 0;i<this->bizlist.size();i++)
+    for (unsigned int i = 0; i < this->bizlist.size(); i++)
     {
-        if(bizname == this->bizlist[i].GetBizName() && islandname == this->bizlist[i].GetIslandName())
+        if (bizname == this->bizlist[i].GetBizName() && islandname == this->bizlist[i].GetIslandName())
         {
             return this->bizlist[i];
         }
