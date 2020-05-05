@@ -95,24 +95,14 @@ std::vector<pirate> crew::LoadPirateList()
     return _piratelist;
 }
 
-void crew::AddToDB(bizdb &db)
-{
-    crew::AddShoppesToDB(db);
-    crew::AddStallsToDB(db);
-    return;
-}
-
 pirate crew::GetPirate(std::string piratename)
 {
-    pirate testpirate;
-    return testpirate;
-}
-
-void crew::AddShoppesToDB(bizdb &db)
-{
-    return;
-}
-void crew::AddStallsToDB(bizdb &db)
-{
-    return;
+    for(unsigned int i = 0;i<this->piratelist.size();i++)
+    {
+        if(piratename == piratelist[i].GetName())
+        {
+            return piratelist[i];
+        }
+    }
+    return pirate();
 }

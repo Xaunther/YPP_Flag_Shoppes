@@ -27,11 +27,11 @@ include(CPack)
 #Post-build setup
 #Move necessary stuff for the exe to run
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.dll ${CMAKE_SOURCE_DIR}/build/Release
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.dll ${CMAKE_SOURCE_DIR}/build
     COMMENT "Copying DLLs"
 )
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build/Release/downloads
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build/downloads
     COMMENT "Creating downloads folder"
 )
 

@@ -8,14 +8,17 @@
 #include "pirate.h"
 #include "crew.h"
 #include "biz.h"
+#include "bizdb.h"
 
 int main(int argc, char *argv[])
 {
-    pirate mypirate("http://emerald.puzzlepirates.com/yoweb/pirate.wm?classic=true&target=Monlizzy");
-    mypirate.Load();
-    //crew mycrew("http://emerald.puzzlepirates.com/yoweb/crew/info.wm?crewid=5033758&classic=true");
-    //mycrew.Load();
+    bizdb mydb;
     flag myflag("http://emerald.puzzlepirates.com/yoweb/flag/info.wm?flagid=10006353&classic=true");
     myflag.Load();
+    mydb.RegisterBiz(myflag);
+    mydb.Print();
+    mydb.PrintToFile("IC_database");
+
+
     return 0;
 }

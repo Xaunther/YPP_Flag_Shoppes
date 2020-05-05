@@ -10,7 +10,6 @@
 #include "flag.h"
 #include "ypp_page.h"
 #include "crew.h"
-#include "bizdb.h"
 #include "Write_Data.h"
 #include "DownloadURL.h"
 
@@ -94,24 +93,14 @@ std::vector<crew> flag::LoadCrewList()
     return _crewlist;
 }
 
-void flag::AddToDB(bizdb &db)
-{
-    flag::AddShoppesToDB(db);
-    flag::AddStallsToDB(db);
-    return;
-}
-
 crew flag::GetCrew(std::string crewname)
 {
-    crew testcrew;
-    return testcrew;
-}
-
-void flag::AddShoppesToDB(bizdb &db)
-{
-    return;
-}
-void flag::AddStallsToDB(bizdb &db)
-{
-    return;
+    for(unsigned int i = 0;i<this->crewlist.size();i++)
+    {
+        if(crewname == crewlist[i].GetName())
+        {
+            return crewlist[i];
+        }
+    }
+    return crew();
 }

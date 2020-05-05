@@ -8,7 +8,6 @@
 #include <vector>
 #include "ypp_page.h"
 #include "pirate.h"
-#include "bizdb.h"
 
 class crew : public ypp_page
 {
@@ -18,12 +17,12 @@ public:
 
     //Methods
     void Load();                                               //Load the crew provided by the URL
-    void AddToDB(bizdb &db);                                   //Loop over crews and add to DB
     std::vector<pirate> GetPirateList() { return piratelist; } //Return list of crews
     pirate GetPirate(int index) { return piratelist[index]; }  //Return pirate index index
     pirate GetPirate(std::string piratename);                  //Return pirate with name piratename
     std::string GetURL() { return URL; }                       //Return crew URL
     std::string GetName() { return crewname; }                 //Return crew name
+
 private:
     //Variables
     std::vector<pirate> piratelist; //List of pirates in flag
@@ -34,8 +33,6 @@ private:
     //Methods
     std::string LoadCrewName();
     std::vector<pirate> LoadPirateList();
-    void AddShoppesToDB(bizdb &db); //Loop over pirates and add shoppes to DB
-    void AddStallsToDB(bizdb &db);  //Loop over pirates and add stalls to DB
 };
 
 #endif
