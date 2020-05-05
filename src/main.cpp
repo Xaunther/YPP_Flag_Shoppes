@@ -12,7 +12,7 @@
 //All arguments are interpreted as flag URLs, except the last one.
 //The last one must provide the filename where to save the database
 //EXAMPLE:
-//YPP_Flag_Shoppes.exe http://emerald.puzzlepirates.com/yoweb/flag/info.wm?flagid=10006353&classic=true IC_database.txt
+//YPP_Flag_Shoppes.exe "http://emerald.puzzlepirates.com/yoweb/flag/info.wm?flagid=10006353&classic=true" IC_database.txt
 int main(int argc, char *argv[])
 {
     bizdb mydb;
