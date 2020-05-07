@@ -86,7 +86,7 @@ std::vector<crew> flag::LoadCrewList()
         {
             //The name of the crew is in this same line
             std::string _URL = _line.substr(_line.find("/yoweb/"), _line.find("=true") + 5 - _line.find("/yoweb/"));
-            _crewlist.push_back(crew("http://emerald.puzzlepirates.com" + _URL));
+            _crewlist.push_back(crew("http://" + this->GetOcean() + ".puzzlepirates.com" + _URL));
             _crewlist[_crewlist.size() - 1].Load();
         }
     }
@@ -95,9 +95,9 @@ std::vector<crew> flag::LoadCrewList()
 
 crew flag::GetCrew(std::string crewname)
 {
-    for(unsigned int i = 0;i<this->crewlist.size();i++)
+    for (unsigned int i = 0; i < this->crewlist.size(); i++)
     {
-        if(crewname == crewlist[i].GetName())
+        if (crewname == crewlist[i].GetName())
         {
             return crewlist[i];
         }

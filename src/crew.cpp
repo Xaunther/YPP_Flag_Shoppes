@@ -88,7 +88,7 @@ std::vector<pirate> crew::LoadPirateList()
             //Cut out the first part
             _line = _line.substr(_line.find("/yoweb/"));
             std::string _URL = _line.substr(0, _line.find("\">"));
-            _piratelist.push_back(pirate("http://emerald.puzzlepirates.com" + _URL));
+            _piratelist.push_back(pirate("http://" + this->GetOcean() + ".puzzlepirates.com" + _URL));
             _piratelist[_piratelist.size() - 1].Load();
         }
     }
@@ -97,9 +97,9 @@ std::vector<pirate> crew::LoadPirateList()
 
 pirate crew::GetPirate(std::string piratename)
 {
-    for(unsigned int i = 0;i<this->piratelist.size();i++)
+    for (unsigned int i = 0; i < this->piratelist.size(); i++)
     {
-        if(piratename == piratelist[i].GetName())
+        if (piratename == piratelist[i].GetName())
         {
             return piratelist[i];
         }

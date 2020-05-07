@@ -14,6 +14,7 @@ public:
     //Methods
     std::string GetURL() { return URL; }           //Return flag URL
     std::string GetFilename() { return filename; } //Return flag name
+    std::string GetOcean();                        //Returns ocean
 protected:
     //Variables
     std::string URL;      //URL of the flag
