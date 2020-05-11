@@ -26,6 +26,7 @@ endif()
 if(UNIX)
   execute_process(COMMAND curl-config --libs OUTPUT_VARIABLE CURL_LIB)
   string(REGEX REPLACE "\n$" "" CURL_LIB "${CURL_LIB}")
+  string(STRIP "${CURL_LIB}" CURL_LIB)
   target_link_libraries(YPP_Flag_Shoppes "${CURL_LIB}")  
 endif()
 
