@@ -4,6 +4,7 @@ The script accepts as many flag URLs as one wants, and needs the last argument t
 
 # Compiling
 The script has been develoved on windows, using Visual Studio Code and Visual Studio 2017, through CMake.
+It can also be compiled in Ubuntu with ease. However, CURL seems to get stuck while downloading and I can't spot the problem yet
 
 # External libraries
 libcurl https://curl.haxx.se/libcurl/ library has been used in order to interact with the yppedia webpages containing the info. 

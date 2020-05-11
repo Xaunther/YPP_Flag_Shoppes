@@ -7,7 +7,7 @@ if(MSVC)
 endif()
 
 #Include dirs
-include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/libcurl/include)
+include_directories(${CMAKE_SOURCE_DIR}/include)# ${CMAKE_SOURCE_DIR}/libcurl/include)
 
 #1 for all
 file(GLOB cpp_files "src/*.cpp")
@@ -18,7 +18,16 @@ add_executable(YPP_Flag_Shoppes src/main.cpp)
 
 #Link against single library and curl
 target_link_libraries(YPP_Flag_Shoppes ypp_flag_shoppe_lib)
-target_link_libraries(YPP_Flag_Shoppes ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.lib)
+#In windows
+if(MSVC)
+  target_link_libraries(YPP_Flag_Shoppes ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.lib)
+endif()
+#In Linux
+if(UNIX)
+  execute_process(COMMAND curl-config --libs OUTPUT_VARIABLE CURL_LIB)
+  string(REGEX REPLACE "\n$" "" CURL_LIB "${CURL_LIB}")
+  target_link_libraries(YPP_Flag_Shoppes "${CURL_LIB}")  
+endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
@@ -27,11 +36,11 @@ include(CPack)
 #Post-build setup
 #Move necessary stuff for the exe to run
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.dll ${CMAKE_SOURCE_DIR}/build
-    COMMENT "Copying DLLs"
-)
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.dll ${CMAKE_SOURCE_DIR}/build
+  COMMENT "Copying DLLs"
+  )
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build/downloads
-    COMMENT "Creating downloads folder"
-)
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build/downloads
+  COMMENT "Creating downloads folder"
+  )
 

@@ -22,7 +22,7 @@ std::string DownloadURL(std::string URL)
     curl_handle = curl_easy_init();
 
     /* set URL to get here */
-    curl_easy_setopt(curl_handle, CURLOPT_URL, URL);
+    curl_easy_setopt(curl_handle, CURLOPT_URL, URL.c_str());
 
     /* Switch on full protocol/debug output while testing */
     curl_easy_setopt(curl_handle, CURLOPT_VERBOSE, 0L);
@@ -41,7 +41,10 @@ std::string DownloadURL(std::string URL)
         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, pagefile);
 
         /* get it! */
-        curl_easy_perform(curl_handle);
+        CURLcode res = curl_easy_perform(curl_handle);
+	//Check issues
+	if(res != CURLE_OK) {
+	  fprintf(stderr, "curl_easy_perform() failed: %s\n",curl_easy_strerror(res));}
 
         /* close the header file */
         fclose(pagefile);
