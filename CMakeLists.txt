@@ -7,7 +7,7 @@ if(MSVC)
 endif()
 
 #Include dirs
-include_directories(${CMAKE_SOURCE_DIR}/include)# ${CMAKE_SOURCE_DIR}/libcurl/include)
+include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/libcurl/include)
 
 #1 for all
 file(GLOB cpp_files "src/*.cpp")
