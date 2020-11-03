@@ -15,7 +15,7 @@
 //YPP_Flag_Shoppes.exe "http://emerald.puzzlepirates.com/yoweb/flag/info.wm?flagid=10006353&classic=true" IC_database.txt
 void PrintUsage()
 {
-    std::cout << "Welcome to YPP_Flag_Shoppes. You attempted to use the script without any argumentsm which will do nothing." << std::endl;
+    std::cout << "Welcome to YPP_Flag_Shoppes. You attempted to use the script without any arguments, which will do nothing." << std::endl;
     std::cout << "Correct usage of the script is as follows:" << std::endl;
     std::cout << "Open a terminal and navigate to the executable folder. Once inside you can use the script." << std::endl;
     std::cout << "YPP_Flag_Shoppes.exe \"<flagURL1>\" \"<flagURL2>\" \"<flagURL3>\"... <outputfile>" << std::endl;

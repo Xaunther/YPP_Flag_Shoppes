@@ -20,7 +20,10 @@ add_executable(YPP_Flag_Shoppes src/main.cpp)
 target_link_libraries(YPP_Flag_Shoppes ypp_flag_shoppe_lib)
 #In windows
 if(MSVC)
-  target_link_libraries(YPP_Flag_Shoppes ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.lib)
+  set(CURL_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/libcurl/include)
+  set(CURL_LIBRARY ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.dll.a )
+  find_package(CURL REQUIRED)
+  target_link_libraries(YPP_Flag_Shoppes CURL::libcurl)
 endif()
 #In Linux
 if(UNIX)
@@ -37,7 +40,7 @@ include(CPack)
 #Post-build setup
 #Move necessary stuff for the exe to run
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl.dll ${CMAKE_SOURCE_DIR}/build
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/libcurl/lib/libcurl-x64.dll ${CMAKE_SOURCE_DIR}/build/Release
   COMMENT "Copying DLLs"
   )
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
