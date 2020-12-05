@@ -16,7 +16,6 @@ std::string DownloadURL(std::string URL)
     //Initialize CURL
     CURL *curl_handle;
     FILE *pagefile;
-    curl_global_init(CURL_GLOBAL_ALL);
 
     /* init the curl session */
     curl_handle = curl_easy_init();
@@ -33,6 +32,9 @@ std::string DownloadURL(std::string URL)
     /* send all data to this function  */
     curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, Write_Data);
 
+    /* No timeout limit */
+    curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 0L);
+
     /* open the file */
     pagefile = fopen(("downloads/" + FilenameFromURL(URL)).c_str(), "wb");
     if (pagefile)
@@ -42,9 +44,11 @@ std::string DownloadURL(std::string URL)
 
         /* get it! */
         CURLcode res = curl_easy_perform(curl_handle);
-	//Check issues
-	if(res != CURLE_OK) {
-	  fprintf(stderr, "curl_easy_perform() failed: %s\n",curl_easy_strerror(res));}
+        //Check issues
+        if (res != CURLE_OK)
+        {
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        }
 
         /* close the header file */
         fclose(pagefile);
@@ -52,8 +56,6 @@ std::string DownloadURL(std::string URL)
 
     /* cleanup curl stuff */
     curl_easy_cleanup(curl_handle);
-
-    curl_global_cleanup();
 
     return "downloads/" + FilenameFromURL(URL);
 }

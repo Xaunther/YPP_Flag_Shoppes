@@ -7,6 +7,8 @@
 //Project files
 #include "flag.h"
 #include "bizdb.h"
+//Curl
+#include <curl/curl.h>
 
 //USAGE:
 //All arguments are interpreted as flag URLs, except the last one.
@@ -31,6 +33,7 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    curl_global_init(CURL_GLOBAL_ALL);
     bizdb mydb;
     std::vector<flag> flaglist;
     for (int i = 1; i < argc - 1; i++)
@@ -46,5 +49,7 @@ int main(int argc, char *argv[])
 
     mydb.Print();
     mydb.PrintXML(argv[argc - 1]);
+
+    curl_global_cleanup();
     return 0;
 }

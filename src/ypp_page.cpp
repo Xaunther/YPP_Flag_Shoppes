@@ -27,9 +27,9 @@ std::string ypp_page::GetOcean()
         return "";
     size_t first_index = this->URL.find("://") + 3;
     size_t last_index = this->URL.find(".puzzlepirates.com");
-    if(first_index == std::string::npos || last_index == std::string::npos)
+    if (first_index == std::string::npos || last_index == std::string::npos)
         return "";
-    return this->URL.substr(first_index, last_index-first_index);
+    return this->URL.substr(first_index, last_index - first_index);
 }
 
 void ypp_page::Download()

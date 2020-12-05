@@ -44,7 +44,7 @@ add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
   COMMENT "Copying DLLs"
   )
 add_custom_command(TARGET YPP_Flag_Shoppes POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build/downloads
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/build/Release/downloads
   COMMENT "Creating downloads folder"
   )
 
