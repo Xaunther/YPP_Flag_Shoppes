@@ -16,7 +16,7 @@ std::vector<std::string> SplitString(std::string s, std::string delimiter)
         splitstring.push_back(s.substr(pos, s.find(delimiter, pos) - pos));
         if (i < N - 1)
         {
-            pos = s.find(delimiter, pos) + delimiter.size();
+            pos = int(s.find(delimiter, pos) + delimiter.size());
         }
     }
     return splitstring;
@@ -29,7 +29,7 @@ int CountString(std::string s, std::string pattern)
     while (s.find(pattern, pos) != std::string::npos)
     {
         N++;
-        pos = s.find(pattern, pos) + pattern.size();
+        pos = int(s.find(pattern, pos) + pattern.size());
     }
     return N;
 }
