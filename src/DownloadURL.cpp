@@ -11,6 +11,12 @@
 #include "Write_Data.h"
 #include "DownloadURL.h"
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 std::string DownloadURL(std::string URL)
 {
     //Initialize CURL
@@ -35,20 +41,26 @@ std::string DownloadURL(std::string URL)
     /* No timeout limit */
     curl_easy_setopt(curl_handle, CURLOPT_TIMEOUT, 0L);
 
+    /* Fail on HTTP error*/
+    curl_easy_setopt(curl_handle, CURLOPT_FAILONERROR, 1L);
+
     /* open the file */
     pagefile = fopen(("downloads/" + FilenameFromURL(URL)).c_str(), "wb");
     if (pagefile)
     {
         /* write the page body to this file handle */
         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, pagefile);
-
         /* get it! */
-        CURLcode res = curl_easy_perform(curl_handle);
-        //Check issues
-        if (res != CURLE_OK)
+        CURLcode res = CURLE_OK;
+        do //Retry until we get it, every 10 seconds
         {
-            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-        }
+            if (res != CURLE_OK)
+            {
+                Sleep(5000);
+            }
+
+            res = curl_easy_perform(curl_handle); /* code */
+        } while (res != CURLE_OK);
 
         /* close the header file */
         fclose(pagefile);
