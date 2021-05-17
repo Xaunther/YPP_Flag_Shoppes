@@ -17,6 +17,8 @@
 #include <unistd.h>
 #endif
 
+#define MAX_TIMEOUT 300000
+
 std::string DownloadURL(std::string URL)
 {
     //Initialize CURL
@@ -52,15 +54,20 @@ std::string DownloadURL(std::string URL)
         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, pagefile);
         /* get it! */
         CURLcode res = CURLE_OK;
-        do //Retry until we get it, every 10 seconds
+        unsigned int i = 0;
+        do //Retry until we get it, every increasing 5-second intervals
         {
-            if (res != CURLE_OK)
+            if (res == CURLE_HTTP_RETURNED_ERROR) //Only repeat on HTTP errors
             {
-                Sleep(5000);
+                Sleep(5000 * i);
             }
 
-            res = curl_easy_perform(curl_handle); /* code */
-        } while (res != CURLE_OK);
+            res = curl_easy_perform(curl_handle);
+            i++;
+        } while (res != CURLE_OK && 5000 * i < MAX_TIMEOUT);
+        //Show that we reached timeout limit
+        if (res != CURLE_OK)
+            fprintf(stderr, "curl_easy_perform() timeout error: %s\n", curl_easy_strerror(res));
 
         /* close the header file */
         fclose(pagefile);
